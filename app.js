@@ -1,6 +1,6 @@
 //======== Dependencies===================//
 const inquirer = require("inquirer")
-const mysql = require("mysql")
+const mysql = require("mysql2")
 const cTable = require('console.table');
 
 const connection = mysql.createConnection({
@@ -69,7 +69,7 @@ function startPrompt() {
 }
 //============= View All Employees ==========================//
 function viewAllEmployees() {
-    connection.query("SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, CONCAT(e.first_name, ' ' ,e.last_name) AS Manager FROM employee INNER JOIN role on role.id = employee.role_id INNER JOIN department on department.id = role.department_id left join employee e on employee.manager_id = e.id;", 
+    connection.query("SELECT * FROM employee;", 
     function(err, res) {
       if (err) throw err
       console.table(res)
@@ -78,7 +78,7 @@ function viewAllEmployees() {
 }
 //============= View All Roles ==========================//
 function viewAllRoles() {
-  connection.query("SELECT employee.first_name, employee.last_name, role.title AS Title FROM employee JOIN role ON employee.role_id = role.id;", 
+  connection.query("SELECT * FROM role;", 
   function(err, res) {
   if (err) throw err
   console.table(res)
@@ -171,7 +171,7 @@ function addEmployee() {
     inquirer.prompt([
           {
             name: "lastName",
-            type: "rawlist",
+            type: "list",
             choices: function() {
               var lastName = [];
               for (var i = 0; i < res.length; i++) {
@@ -183,7 +183,7 @@ function addEmployee() {
           },
           {
             name: "role",
-            type: "rawlist",
+            type: "list",
             message: "What is the Employees new title? ",
             choices: selectRole()
           },
