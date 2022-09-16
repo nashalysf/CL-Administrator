@@ -43,3 +43,9 @@ INSERT INTO employee (first_name, last_name, manager_id, role_id)
 VALUE ("Jane", "Doe", 1, 6);
 INSERT INTO employee (first_name, last_name, manager_id, role_id)
 VALUE ("George", "Tucker", 2, 7);
+
+-- MANAGERS SEEDS -------
+INSERT INTO managers (first_name, last_name, role_id, department_id)
+VALUE ("Gabriel", "Rivera", 1, 2);
+INSERT INTO managers (first_name, last_name, role_id, department_id)
+VALUE ("George", "Tucker", 2, 7);
